@@ -3,6 +3,7 @@ package app.persistence;
 import java.util.List;
 
 import app.model.User;
+import app.model.ZipCode;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.TypedQuery;
