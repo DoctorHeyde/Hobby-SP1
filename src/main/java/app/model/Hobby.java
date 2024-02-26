@@ -2,6 +2,7 @@ package app.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -13,12 +14,13 @@ import java.util.Set;
 @ToString
 @Entity
 @Table(name = "hobby")
+@NoArgsConstructor
 public class Hobby {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
-    private  Integer id;
+    private Integer id;
 
     @Column(name = "name")
     private String name;
@@ -45,7 +47,5 @@ public class Hobby {
         this.style = style;
     }
 
-    }
-
-
 }
+
