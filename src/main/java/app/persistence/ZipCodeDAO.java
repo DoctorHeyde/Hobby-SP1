@@ -5,7 +5,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 
 public class ZipCodeDAO extends DAO<ZipCode> {
-    private static ZipCodeDAO instanse;
+    public static ZipCodeDAO instanse;
         public static ZipCodeDAO getZipCodeDAOInstanse(EntityManagerFactory _emf){
         if (instanse == null) {
             emf = _emf;

@@ -6,7 +6,7 @@ import jakarta.persistence.EntityManagerFactory;
 
 public class HobbyDAO extends DAO<Hobby> {
 
-    private static HobbyDAO instanse;
+    public static HobbyDAO instanse;
         public static HobbyDAO getHobbyDAOInstanse(EntityManagerFactory _emf){
         if (instanse == null) {
             emf = _emf;

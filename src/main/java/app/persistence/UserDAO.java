@@ -5,7 +5,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 
 public class UserDAO extends DAO<User>{
-    private static UserDAO instanse;
+    public static UserDAO instanse;
         public static UserDAO getUserDAOInstanse(EntityManagerFactory _emf){
         if (instanse == null) {
             emf = _emf;
