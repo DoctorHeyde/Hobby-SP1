@@ -12,7 +12,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "user")
+@Table(name = "hobbyuser")
 @NoArgsConstructor
 public class User {
 
@@ -39,7 +39,7 @@ public class User {
     @Column(name = "house_number")
     private int houseNumber;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "users")
     private Set<Hobby> hobbies = new HashSet<>();
 
     public User(String name, int phoneNumber, ZipCode zipCode, String streetName, String floor, int houseNumber){

@@ -26,7 +26,7 @@ public class ZipCodeDAO extends DAO<ZipCode> {
 
     public List<ZipCode> getAllZipCodeds(){
         try(EntityManager em = emf.createEntityManager()){
-            String sql = "SELECT z FROM ZipCode z JOIN";
+            String sql = "FROM ZipCode";
             TypedQuery<ZipCode> zips =  em.createQuery(sql, ZipCode.class);
             return zips.getResultList();
         }

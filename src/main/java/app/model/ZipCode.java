@@ -27,7 +27,7 @@ public class ZipCode {
     @Column(name = "municipality_name")
     private String municipalityName;
 
-    @OneToMany
+    @OneToMany(mappedBy = "zipCode")
     private Set<User> users;
 
     public ZipCode(int zip, String cityName, String regionName, String municipalityName) {
@@ -39,6 +39,9 @@ public class ZipCode {
     }
 
     public void addUser(User user){
+        if(user != null){
+            user.setZipCode(this);
+        }
         users.add(user);
     }
 }
