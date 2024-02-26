@@ -1,4 +1,4 @@
-package app.model.entities;
+package app.model;
 
 public class EmptyClass {
 }
