@@ -1,18 +1,17 @@
 package app.persistence;
 
 import app.model.User;
-import app.model.ZipCode;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 
 public class UserDAO extends DAO<User>{
-    public static UserDAO instanse;
-        public static UserDAO getUserDAOInstanse(EntityManagerFactory _emf){
-        if (instanse == null) {
+    public static UserDAO instance;
+        public static UserDAO getUserDAOInstance(EntityManagerFactory _emf){
+        if (instance == null) {
             emf = _emf;
-            instanse = new UserDAO();
+            instance = new UserDAO();
         }
-        return instanse;
+        return instance;
     }
 
     @Override
