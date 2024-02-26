@@ -3,8 +3,9 @@ package app.persistence;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 
+
 public abstract class DAO<T extends Object> {
-    public static EntityManagerFactory emf;
+    protected static EntityManagerFactory emf;
 
     public static void close(){
         emf.close();
@@ -20,5 +21,5 @@ public abstract class DAO<T extends Object> {
     }
 
     public abstract T getById(int id);
-    
+
 }
