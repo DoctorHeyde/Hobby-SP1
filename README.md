@@ -11,3 +11,7 @@
 [US-9] As a user I want to be able to do CRUD operations on all JPA entities unless it wouldn't make sense for a given entity.  
 [US-10] As a user I want to see all people on an address with a count on how many hobbies each person has (Use Java Streams for this one)  
 [US-11] … Add more meaningful services of your own choice.  
+
+# Observations
+
+* WHY CAN'T YOU MAKE GENERIC SINGELTONS IN JAVA?

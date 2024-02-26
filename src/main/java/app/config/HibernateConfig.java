@@ -7,6 +7,10 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
+import app.model.Hobby;
+import app.model.User;
+import app.model.ZipCode;
+
 import java.util.Properties;
 
 
@@ -75,7 +79,9 @@ public class HibernateConfig {
 
     private static void getAnnotationConfiguration(Configuration configuration) {
         // add annotated classes
-        // configuration.addAnnotatedClass();
+        configuration.addAnnotatedClass(Hobby.class);
+        configuration.addAnnotatedClass(User.class);
+        configuration.addAnnotatedClass(ZipCode.class);
     }
 
     public static EntityManagerFactory getEntityManagerFactoryConfig(String name, boolean testing) {
