@@ -1,7 +1,7 @@
 # Hobby-SP1
 
 [US-1] As a user I want to get all the information about a person  
-[US-2] As a user I want to get all phone numbers from a given person  
+[US-2] As a user I want to get a phone number from a given person  
 [US-3] As a user I want to get all persons with a given hobby  
 [US-4] As a user I want to get the number of people with a given hobby  
 [US-5] As a user I want to get a list all hobbies + a count of how many are interested in each hobby  
