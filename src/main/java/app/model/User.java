@@ -4,6 +4,10 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.swing.*;
+import java.util.HashSet;
+import java.util.Set;
+
 @Getter
 @Setter
 @Entity
@@ -23,6 +27,25 @@ public class User {
     @OneToMany
     private ZipCode zipCode;
 
-    @Column(name = )
+    @Column(name = "street_name")
+    private String streetName;
+
+    @Column(name = "floor")
+    private String floor;
+
+    @Column(name = "house_number")
+    private int houseNumber;
+
+    @ManyToMany
+    private static Set<Hobby> hobbies = new HashSet<>();
+
+    public User(String name, int phoneNumber, ZipCode zipCode, String streetName, String floor, int houseNumber){
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.zipCode = zipCode;
+        this.streetName = streetName;
+        this.floor = floor;
+        this.houseNumber = houseNumber;
+    }
 
 }
