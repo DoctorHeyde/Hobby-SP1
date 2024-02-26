@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -26,15 +27,21 @@ public class ZipCode {
     @Column(name = "municipality_name")
     private String municipalityName;
 
-    @OneToMany
+    @OneToMany(mappedBy = "zipCode")
     private Set<User> users;
 
+    public ZipCode(int zip, String cityName, String regionName, String municipalityName) {
+        this.zip = zip;
+        this.cityName = cityName;
+        this.regionName = regionName;
+        this.municipalityName = municipalityName;
+        users = new HashSet<>();
+    }
 
-
-
-
-
-
-
-
+    public void addUser(User user){
+        if(user != null){
+            user.setZipCode(this);
+        }
+        users.add(user);
+    }
 }
