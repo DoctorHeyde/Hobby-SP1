@@ -2,6 +2,7 @@ package app.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.swing.*;
@@ -12,7 +13,9 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "user")
+@NoArgsConstructor
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -24,7 +27,7 @@ public class User {
     @Column(name = "phone_number")
     private int phoneNumber;
 
-    @OneToMany
+    @ManyToOne
     private ZipCode zipCode;
 
     @Column(name = "street_name")
