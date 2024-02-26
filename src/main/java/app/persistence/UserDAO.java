@@ -1,6 +1,7 @@
 package app.persistence;
 
 import app.model.User;
+import app.model.ZipCode;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 

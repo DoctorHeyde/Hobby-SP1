@@ -1,8 +1,11 @@
 package app.persistence;
 
+import java.util.List;
+
 import app.model.ZipCode;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.TypedQuery;
 
 public class ZipCodeDAO extends DAO<ZipCode> {
     public static ZipCodeDAO instanse;
@@ -19,6 +22,14 @@ public class ZipCodeDAO extends DAO<ZipCode> {
         try(EntityManager em = emf.createEntityManager()){
             return em.find(ZipCode.class, id);
         }  
+    }
+
+    public List<ZipCode> getAllZipCodeds(){
+        try(EntityManager em = emf.createEntityManager()){
+            String sql = "SELECT z FROM ZipCode z JOIN";
+            TypedQuery<ZipCode> zips =  em.createQuery(sql, ZipCode.class);
+            return zips.getResultList();
+        }
     }
     
 }

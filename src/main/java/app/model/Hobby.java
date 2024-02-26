@@ -38,13 +38,17 @@ public class Hobby {
 
 
     @ManyToMany
-    private static Set<User> user = new HashSet<>();
+    private Set<User> users = new HashSet<>();
 
     public Hobby(String name, String wikiLink, String category, Style style) {
         this.name = name;
         this.wikiLink = wikiLink;
         this.category = category;
         this.style = style;
+    }
+
+    public void addUser(User user){
+        users.add(user);
     }
 
 }
