@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Getter
 @Setter
 @Entity
@@ -24,8 +26,8 @@ public class ZipCode {
     @Column(name = "municipality_name")
     private String municipalityName;
 
-    @ManyToOne
-    private User user;
+    @OneToMany
+    private Set<User> users;
 
 
 
