@@ -5,11 +5,9 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import app.config.HibernateConfig;
+import app.controllers.UserControler;
 import app.controllers.ZipCodeControler;
-import app.model.Hobby;
-import app.model.Style;
 import app.model.User;
-import app.model.ZipCode;
 import app.persistence.HobbyDAO;
 import app.persistence.UserDAO;
 import app.persistence.ZipCodeDAO;
@@ -19,12 +17,20 @@ public class Main {
     public static void main(String[] args){
         EntityManagerFactory emf = HibernateConfig.getEntityManagerFactoryConfig("hobby", false);
 
-        ZipCodeControler zipCodeControler = new ZipCodeControler(ZipCodeDAO.getZipCodeDAOInstanse(emf));
+        ZipCodeDAO zipCodeDAO   = ZipCodeDAO.getZipCodeDAOInstanse(emf);
+        UserDAO userDAO         = UserDAO.getUserDAOInstanse(emf);
+
+        ZipCodeControler zipCodeControler   = new ZipCodeControler(zipCodeDAO);
+        UserControler userControler         = new UserControler(userDAO);
 
         zipCodeControler.printAllZipsCity();
-        
+
         // Uncomment below to insert the data into db
         // insertDB(emf);
+
+        ZipCodeDAO.close();
+        UserDAO.close();
+        HobbyDAO.close();
     }
 
 
