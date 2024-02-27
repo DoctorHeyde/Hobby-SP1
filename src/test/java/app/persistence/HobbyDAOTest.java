@@ -4,6 +4,7 @@ import app.config.HibernateConfig;
 import app.model.Hobby;
 import app.model.Style;
 import app.model.User;
+import app.model.ZipCode;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Query;
@@ -16,14 +17,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class HobbyDAOTest {
 
-    private static EntityManagerFactory emfTest;
-    HobbyDAO hobbyDAO;
-    UserDAO userDAO;
+    private static EntityManagerFactory emfTest = HibernateConfig.getEntityManagerFactoryConfig("testdb",true);
+    private static HobbyDAO hobbyDAO = HobbyDAO.getHobbyDAOInstance(emfTest);
+    private static UserDAO userDAO = UserDAO.getUserDAOInstance(emfTest);
     @BeforeAll
     public static void setUpAll() {
         emfTest = HibernateConfig.getEntityManagerFactoryConfig("testdb",true);
-        HobbyDAO hobbyDAO = HobbyDAO.getHobbyDAOInstance(emfTest);
-        UserDAO userDAO = UserDAO.getUserDAOInstance(emfTest);
     }
 
     @AfterEach
@@ -39,16 +38,34 @@ class HobbyDAOTest {
 
     @BeforeEach
     void setUp() {
-        hobbyDAO.save(new Hobby("3d-printing", "https://en.wikipedia.org/wiki/3D_printing", "Generel", Style.Indendørs));
-        hobbyDAO.save(new Hobby("BasketBall", "https://en.wikipedia.org/wiki/basketball", "sport", Style.Udendørs));
+        Hobby h1 = new Hobby("3d-printing", "https://en.wikipedia.org/wiki/3D_printing", "Generel", Style.Indendørs);
+        Hobby h2 = new Hobby("BasketBall", "https://en.wikipedia.org/wiki/basketball", "sport", Style.Udendørs);
 
-        User u1 = new User("Lauritz", 12312312, 2540, "Street1", "1tv",17);
-        
+        ZipCode zip = new ZipCode(2500, "Valby", "Nordsjælland", "København");
+
+        User u1 = new User("Lauritz", 12312312, zip, "Street1", "1tv",17);
+        User u2 = new User("Alberte", 60230304, zip, "Street2", "1tv",17);
+        User u3 = new User("John doe", 60230304, zip, "Street2", "1tv",17);
+        u1.addHobby(h1);
+        u2.addHobby(h1);
+        u3.addHobby(h2);
+        //Persist user entities(Use save method from DAO if available)
+        try(EntityManager em = emfTest.createEntityManager()) {
+            em.getTransaction().begin();
+            em.persist(zip);
+            em.persist(u1);
+            em.persist(u2);
+            em.persist(u3);
+            em.getTransaction().commit();
+        }
+
+        hobbyDAO.save(h1);
+        hobbyDAO.save(h2);
     }
 
     @Test
     void getNumberOfUsersWithHobby() {
-
-
+        assertEquals(2,hobbyDAO.getNumberOfUsersWithHobby(1));
+        assertEquals(1,hobbyDAO.getNumberOfUsersWithHobby(2));
     }
 }

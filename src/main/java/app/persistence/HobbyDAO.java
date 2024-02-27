@@ -26,9 +26,9 @@ public class HobbyDAO extends DAO<Hobby> {
     //getNumberOfUsersWithHobby
     public int getNumberOfUsersWithHobby(int hobbyId) {
         try (EntityManager em = emf.createEntityManager()) {
-            TypedQuery<Integer> query = em.createQuery("SELECT h.users.size FROM Hobby h WHERE h.id = :hobbyId", Integer.class);
+            TypedQuery<Long> query = em.createQuery("SELECT COUNT(u) FROM User u JOIN u.hobbies h WHERE h.id = :hobbyId", Long.class);
             query.setParameter("hobbyId", hobbyId);
-            return query.getSingleResult();
+            return query.getSingleResult().intValue();
         }
     }
 }
