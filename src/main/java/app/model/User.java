@@ -12,9 +12,9 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "person")
+@Table(name = "hobbyuser")
 @NoArgsConstructor
-public class Person {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,10 +40,10 @@ public class Person {
     private int houseNumber;
 
     @ToString.Exclude
-    @ManyToMany(mappedBy = "persons")
+    @ManyToMany(mappedBy = "users")
     private Set<Hobby> hobbies = new HashSet<>();
 
-    public Person(String name, int phoneNumber, ZipCode zipCode, String streetName, String floor, int houseNumber){
+    public User(String name, int phoneNumber, ZipCode zipCode, String streetName, String floor, int houseNumber){
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.zipCode = zipCode;
@@ -54,7 +54,7 @@ public class Person {
 
     public void addHobbie(Hobby hobby){
         if (hobby != null) {
-            hobby.addPerson(this);
+            hobby.addUser(this);
         }
         hobbies.add(hobby);
     }

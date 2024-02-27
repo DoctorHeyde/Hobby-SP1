@@ -1,6 +1,6 @@
 package app.persistence;
 
-import app.DTO.NumberOfPersonsPerHobbyDTO;
+import app.DTO.NumberOfUsersPerHobbyDTO;
 import app.model.Hobby;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -27,14 +27,14 @@ public class HobbyDAO extends DAO<Hobby> {
     }
 
 
-    public List<NumberOfPersonsPerHobbyDTO> getNumberOfPersonsPerHobby() {
+    public List<NumberOfUsersPerHobbyDTO> getNumberOfPersonsPerHobby() {
 
         try (var em = emf.createEntityManager()) {
 
 
-            var query = em.createQuery("SELECT new app.DTO.NumberOfPersonsPerHobbyDTO(h, COUNT(p)) FROM Hobby h " +
-                            "LEFT JOIN h.persons p GROUP BY h ORDER BY COUNT(p) DESC",
-                    NumberOfPersonsPerHobbyDTO.class);
+            var query = em.createQuery("SELECT new app.DTO.NumberOfUsersPerHobbyDTO(h, COUNT(p)) FROM Hobby h " +
+                            "LEFT JOIN h.users p GROUP BY h ORDER BY COUNT(p) DESC",
+                    NumberOfUsersPerHobbyDTO.class);
 
 
             return query.getResultList();

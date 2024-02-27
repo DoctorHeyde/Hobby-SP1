@@ -1,49 +1,49 @@
 package app.persistence;
 
 import app.model.Hobby;
-import app.model.Person;
+import app.model.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 
-public class PersonDAO extends DAO<Person> {
-    public static PersonDAO instanse;
+public class UserDAO extends DAO<User> {
+    public static UserDAO instanse;
 
-    public static PersonDAO getUserDAOInstanse(EntityManagerFactory _emf) {
+    public static UserDAO getUserDAOInstanse(EntityManagerFactory _emf) {
         if (instanse == null) {
             emf = _emf;
-            instanse = new PersonDAO();
+            instanse = new UserDAO();
         }
         return instanse;
     }
 
     @Override
-    public Person getById(int id) {
+    public User getById(int id) {
         try (EntityManager em = emf.createEntityManager()) {
-            return em.find(Person.class, id);
+            return em.find(User.class, id);
         }
     }
 
-    public void savePerson(Person person) {
+    public void saveUser(User user) {
 
         try (var em = emf.createEntityManager()) {
             em.getTransaction().begin();
-            em.persist(person);
+            em.persist(user);
             em.getTransaction().commit();
         }
 
     }
 
-    public void addHobbyToPerson(int personId, int hobbyId) {
+    public void addHobbyToUser(int userId, int hobbyId) {
 
         try (var em = emf.createEntityManager()) {
 
             em.getTransaction().begin();
-            Person personFromDB = em.find(Person.class, personId);
+            User userFromDB = em.find(User.class, userId);
             Hobby hobbyFromDB = em.find(Hobby.class, hobbyId);
 
-            personFromDB.addHobbie(hobbyFromDB);
+            userFromDB.addHobbie(hobbyFromDB);
 
-            em.merge(personFromDB);
+            em.merge(userFromDB);
 
             em.getTransaction().commit();
         }

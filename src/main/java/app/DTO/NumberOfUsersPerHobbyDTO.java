@@ -9,13 +9,13 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class NumberOfPersonsPerHobbyDTO {
+public class NumberOfUsersPerHobbyDTO {
 
     Hobby hobby;
-    long numberOfPersons;
+    long numberOfUsers;
 
-    public NumberOfPersonsPerHobbyDTO(Hobby hobby, long numberOfPersons) {
+    public NumberOfUsersPerHobbyDTO(Hobby hobby, long numberOfUsers) {
         this.hobby = hobby;
-        this.numberOfPersons = numberOfPersons;
+        this.numberOfUsers = numberOfUsers;
     }
 }
