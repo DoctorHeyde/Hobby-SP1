@@ -23,15 +23,6 @@ public class UserDAO extends DAO<User> {
         }
     }
 
-    public void saveUser(User user) {
-
-        try (var em = emf.createEntityManager()) {
-            em.getTransaction().begin();
-            em.persist(user);
-            em.getTransaction().commit();
-        }
-
-    }
 
     public void addHobbyToUser(int userId, int hobbyId) {
 

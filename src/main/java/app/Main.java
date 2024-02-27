@@ -32,10 +32,10 @@ public class Main {
 
         UserDAO personDAO = UserDAO.getUserDAOInstanse(emf);
 
-        personDAO.saveUser(person1);
-        personDAO.saveUser(person2);
-        personDAO.saveUser(person3);
-        personDAO.saveUser(person4);
+        personDAO.save(person1);
+        personDAO.save(person2);
+        personDAO.save(person3);
+        personDAO.save(person4);
 
 
         personDAO.addHobbyToUser(1, 4);
