@@ -32,4 +32,14 @@ public class UserDAO extends DAO<User>{
             return q.getResultList();
         }
     }
+
+    //As a user I want to get all persons with a given hobby
+    public List<User> getUsersByHobby(int hobbyId){
+        try(var em = emf.createEntityManager()){
+            String sql = "SELECT u FROM User u JOIN u.hobbies h WHERE h.id = :hobbyId";
+            TypedQuery<User> q = em.createQuery(sql, User.class);
+            q.setParameter("hobbyId", hobbyId);
+            return q.getResultList();
+        }
+    }
 }
