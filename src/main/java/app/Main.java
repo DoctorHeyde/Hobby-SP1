@@ -15,6 +15,7 @@ import app.model.User;
 import app.model.ZipCode;
 import app.persistence.HobbyDAO;
 import app.persistence.UserDAO;
+import app.persistence.ZipCodeDAO;
 import jakarta.persistence.EntityManagerFactory;
 
 public class Main {
@@ -35,33 +36,33 @@ public class Main {
         User person4 = new User("Lykke Andersen", 99999999, zip2400, "Bispebjerg Torv", "st tv", 6);
 
 
-        UserDAO personDAO = UserDAO.getUserDAOInstanse(emf);
+        UserDAO userDAO = UserDAO.getUserDAOInstance(emf);
 
-        personDAO.save(person1);
-        personDAO.save(person2);
-        personDAO.save(person3);
-        personDAO.save(person4);
-
-
-        personDAO.addHobbyToUser(1, 4);
-        personDAO.addHobbyToUser(2, 4);
-        personDAO.addHobbyToUser(3, 4);
-
-        personDAO.addHobbyToUser(1, 5);
-        personDAO.addHobbyToUser(2, 5);
-
-        personDAO.addHobbyToUser(4, 6);
+        userDAO.save(person1);
+        userDAO.save(person2);
+        userDAO.save(person3);
+        userDAO.save(person4);
 
 
-        HobbyDAO hobbyDAO = HobbyDAO.getHobbyDAOInstanse(emf);
+        userDAO.addHobbyToUser(1, 4);
+        userDAO.addHobbyToUser(2, 4);
+        userDAO.addHobbyToUser(3, 4);
 
-        List<NumberOfUsersPerHobbyDTO> personsPerHobby = hobbyDAO.getNumberOfPersonsPerHobby();
+        userDAO.addHobbyToUser(1, 5);
+        userDAO.addHobbyToUser(2, 5);
 
-        personsPerHobby.forEach(System.out::println);
+        userDAO.addHobbyToUser(4, 6);
+
+
+        HobbyDAO hobbyDAO = HobbyDAO.getHobbyDAOInstance(emf);
+
+        List<NumberOfUsersPerHobbyDTO> usersPerHobby = hobbyDAO.getNumberOfPersonsPerHobby();
+
+        usersPerHobby.forEach(System.out::println);
 
 
         ZipCodeDAO zipCodeDAO   = ZipCodeDAO.getZipCodeDAOInstanse(emf);
-        UserDAO userDAO         = UserDAO.getUserDAOInstanse(emf);
+        //UserDAO userDAO         = UserDAO.getUserDAOInstance(emf);
 
         ZipCodeControler zipCodeControler   = new ZipCodeControler(zipCodeDAO);
         UserControler userControler         = new UserControler(userDAO);

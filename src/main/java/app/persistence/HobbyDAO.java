@@ -34,7 +34,6 @@ public class HobbyDAO extends DAO<Hobby> {
 
         try (var em = emf.createEntityManager()) {
 
-
             var query = em.createQuery("SELECT new app.DTO.NumberOfUsersPerHobbyDTO(h, COUNT(p)) FROM Hobby h " +
                             "LEFT JOIN h.users p GROUP BY h ORDER BY COUNT(p) DESC",
                     NumberOfUsersPerHobbyDTO.class);
