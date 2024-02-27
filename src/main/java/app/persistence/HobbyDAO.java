@@ -3,16 +3,17 @@ package app.persistence;
 import app.model.Hobby;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.TypedQuery;
 
 public class HobbyDAO extends DAO<Hobby> {
 
-    public static HobbyDAO instanse;
-        public static HobbyDAO getHobbyDAOInstanse(EntityManagerFactory _emf){
-        if (instanse == null) {
+    public static HobbyDAO instance;
+        public static HobbyDAO getHobbyDAOInstance(EntityManagerFactory _emf){
+        if (instance == null) {
             emf = _emf;
-            instanse = new HobbyDAO();
+            instance = new HobbyDAO();
         }
-        return instanse;
+        return instance;
     }
 
     @Override
@@ -21,5 +22,13 @@ public class HobbyDAO extends DAO<Hobby> {
             return em.find(Hobby.class, id);
         }  
     }
-    
+
+    //getNumberOfUsersWithHobby
+    public int getNumberOfUsersWithHobby(int hobbyId) {
+        try (EntityManager em = emf.createEntityManager()) {
+            TypedQuery<Long> query = em.createQuery("SELECT COUNT(u) FROM User u JOIN u.hobbies h WHERE h.id = :hobbyId", Long.class);
+            query.setParameter("hobbyId", hobbyId);
+            return query.getSingleResult().intValue();
+        }
+    }
 }

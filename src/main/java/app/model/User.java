@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.swing.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -51,7 +50,7 @@ public class User {
         this.houseNumber = houseNumber;
     }
 
-    public void addHobbie(Hobby hobby){
+    public void addHobby(Hobby hobby){
         if (hobby != null) {
             hobby.addUser(this);
         }
