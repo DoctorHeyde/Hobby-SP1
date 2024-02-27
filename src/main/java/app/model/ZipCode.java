@@ -28,20 +28,20 @@ public class ZipCode {
     private String municipalityName;
 
     @OneToMany(mappedBy = "zipCode")
-    private Set<User> users;
+    private Set<Person> persons = new HashSet<>();
 
     public ZipCode(int zip, String cityName, String regionName, String municipalityName) {
         this.zip = zip;
         this.cityName = cityName;
         this.regionName = regionName;
         this.municipalityName = municipalityName;
-        users = new HashSet<>();
+
     }
 
-    public void addUser(User user){
-        if(user != null){
-            user.setZipCode(this);
+    public void addPerson(Person person){
+        if(person != null){
+            person.setZipCode(this);
         }
-        users.add(user);
+        persons.add(person);
     }
 }

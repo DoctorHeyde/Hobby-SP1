@@ -37,8 +37,9 @@ public class Hobby {
     private Style style;
 
 
+    @ToString.Exclude
     @ManyToMany
-    private Set<User> users = new HashSet<>();
+    private Set<Person> persons = new HashSet<>();
 
     public Hobby(String name, String wikiLink, String category, Style style) {
         this.name = name;
@@ -47,8 +48,8 @@ public class Hobby {
         this.style = style;
     }
 
-    public void addUser(User user){
-        users.add(user);
+    public void addPerson(Person person){
+        persons.add(person);
     }
 
 }

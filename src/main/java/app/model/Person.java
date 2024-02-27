@@ -4,17 +4,17 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
-import javax.swing.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "hobbyuser")
+@Table(name = "person")
 @NoArgsConstructor
-public class User {
+public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,10 +39,11 @@ public class User {
     @Column(name = "house_number")
     private int houseNumber;
 
-    @ManyToMany(mappedBy = "users")
+    @ToString.Exclude
+    @ManyToMany(mappedBy = "persons")
     private Set<Hobby> hobbies = new HashSet<>();
 
-    public User(String name, int phoneNumber, ZipCode zipCode, String streetName, String floor, int houseNumber){
+    public Person(String name, int phoneNumber, ZipCode zipCode, String streetName, String floor, int houseNumber){
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.zipCode = zipCode;
@@ -53,7 +54,7 @@ public class User {
 
     public void addHobbie(Hobby hobby){
         if (hobby != null) {
-            hobby.addUser(this);
+            hobby.addPerson(this);
         }
         hobbies.add(hobby);
     }
