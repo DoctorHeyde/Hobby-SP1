@@ -1,19 +1,24 @@
 package app.persistence;
 
+
 import app.model.Hobby;
+
+import java.util.List;
 import app.model.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.TypedQuery;
 
-public class UserDAO extends DAO<User> {
-    public static UserDAO instanse;
 
-    public static UserDAO getUserDAOInstanse(EntityManagerFactory _emf) {
-        if (instanse == null) {
+public class UserDAO extends DAO<User>{
+    public static UserDAO instance;
+        public static UserDAO getUserDAOInstance(EntityManagerFactory _emf){
+        if (instance == null) {
+
             emf = _emf;
-            instanse = new UserDAO();
+            instance = new UserDAO();
         }
-        return instanse;
+        return instance;
     }
 
     @Override
@@ -32,12 +37,21 @@ public class UserDAO extends DAO<User> {
             User userFromDB = em.find(User.class, userId);
             Hobby hobbyFromDB = em.find(Hobby.class, hobbyId);
 
-            userFromDB.addHobbie(hobbyFromDB);
+            userFromDB.addHobby(hobbyFromDB);
 
             em.merge(userFromDB);
 
             em.getTransaction().commit();
         }
 
+    }
+
+    public List<User> getUsersByZip(int zipCode){
+        try(var em = emf.createEntityManager()){
+            String sql = "SELECT u FROM User u WHERE u.zipCode = :zipCode";
+            TypedQuery<User> q = em.createQuery(sql, User.class);
+            q.setParameter("zipCode", zipCode);
+            return q.getResultList();
+        }
     }
 }

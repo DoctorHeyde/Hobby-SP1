@@ -52,7 +52,7 @@ public class User {
         this.houseNumber = houseNumber;
     }
 
-    public void addHobbie(Hobby hobby){
+    public void addHobby(Hobby hobby){
         if (hobby != null) {
             hobby.addUser(this);
         }

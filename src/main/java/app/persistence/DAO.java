@@ -20,6 +20,14 @@ public abstract class DAO<T extends Object> {
         } 
         return t;
     }
+    public T update(T t) {
+        try (EntityManager em = emf.createEntityManager()) {
+            em.getTransaction().begin();
+            em.merge(t);
+            em.getTransaction().commit();
+        } 
+        return t;
+    }
 
     public abstract T getById(int id);
     public void remove(T t){

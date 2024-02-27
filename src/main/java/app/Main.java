@@ -7,6 +7,10 @@ import java.util.Scanner;
 
 import app.DTO.NumberOfUsersPerHobbyDTO;
 import app.config.HibernateConfig;
+
+import app.controllers.UserControler;
+import app.controllers.ZipCodeControler;
+
 import app.model.User;
 import app.model.ZipCode;
 import app.persistence.HobbyDAO;
@@ -16,6 +20,7 @@ import jakarta.persistence.EntityManagerFactory;
 public class Main {
     public static void main(String[] args){
         EntityManagerFactory emf = HibernateConfig.getEntityManagerFactoryConfig("hobby", false);
+
 
         //ZipCodeControler zipCodeControler = new ZipCodeControler(ZipCodeDAO.getZipCodeDAOInstanse(emf));
 
@@ -55,9 +60,21 @@ public class Main {
         personsPerHobby.forEach(System.out::println);
 
 
-        
+        ZipCodeDAO zipCodeDAO   = ZipCodeDAO.getZipCodeDAOInstanse(emf);
+        UserDAO userDAO         = UserDAO.getUserDAOInstanse(emf);
+
+        ZipCodeControler zipCodeControler   = new ZipCodeControler(zipCodeDAO);
+        UserControler userControler         = new UserControler(userDAO);
+
+        zipCodeControler.printAllZipsCity();
+
         // Uncomment below to insert the data into db
- //        insertDB(emf);
+        // insertDB(emf);
+
+        ZipCodeDAO.close();
+        UserDAO.close();
+        HobbyDAO.close();
+
     }
 
 
