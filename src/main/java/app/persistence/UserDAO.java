@@ -32,4 +32,14 @@ public class UserDAO extends DAO<User>{
             return q.getResultList();
         }
     }
+    
+    //As a user I want to get a phone number from a given person
+    public Integer getPhoneNumber(int userId){
+        try(EntityManager em = emf.createEntityManager()){
+            String sql = "SELECT u.phoneNumber FROM User u WHERE u.id = :userId";
+            TypedQuery<Integer> q = em.createQuery(sql, Integer.class);
+            q.setParameter("userId", userId);
+            return q.getSingleResult();
+        }
+    }
 }
