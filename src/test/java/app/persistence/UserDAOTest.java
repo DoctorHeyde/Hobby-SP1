@@ -19,6 +19,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
+import java.util.Map;
+
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class UserDAOTest {
     private static EntityManagerFactory emfTest;
@@ -56,6 +58,7 @@ public class UserDAOTest {
         User u2 = new User("Alberte", 60230304, zip, "Street2", "1tv",17);
         User u3 = new User("John doe", 60230305, zip, "Street2", "1tv",17);
         u1.addHobby(h1);
+        u1.addHobby(h2);
         u2.addHobby(h1);
         u3.addHobby(h2);
         
@@ -74,15 +77,13 @@ public class UserDAOTest {
     @Test
     public void getUsersByHobby() {
         assertEquals(2, userDAO.getUsersByHobby(1).size());
-        assertEquals(1, userDAO.getUsersByHobby(2).size());
+        assertEquals(2, userDAO.getUsersByHobby(2).size());
     }
 
     @Test
     public void getUserByPhoneNumber(){
         User expected = userDAO.getById(3);
-
         User actual = userDAO.getByPhoneNumber(60230305);
-
         assertEquals(expected, actual);
     }
     
@@ -90,5 +91,15 @@ public class UserDAOTest {
     public void getPhoneNumber() {
         assertEquals(12312312, userDAO.getPhoneNumber(1));
         assertEquals(60230304, userDAO.getPhoneNumber(2));
+    }
+
+    @Test
+    void getUsersHobbyCountByAddress() {
+
+        Map<User, Integer> actualMap = userDAO.getUsersHobbyCountByAddress("Street1", 17);
+        User actualUser = actualMap.keySet().stream().findFirst().get();
+        int actualCount = actualMap.get(actualUser);
+        assertEquals(2,actualCount);
+        assertEquals(1,actualUser.getId());
     }
 }
