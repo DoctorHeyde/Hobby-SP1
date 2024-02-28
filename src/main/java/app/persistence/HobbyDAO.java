@@ -7,8 +7,8 @@ import jakarta.persistence.TypedQuery;
 
 public class HobbyDAO extends DAO<Hobby> {
 
-    public static HobbyDAO instance;
-        public static HobbyDAO getHobbyDAOInstance(EntityManagerFactory _emf){
+    private static HobbyDAO instance;
+    public static HobbyDAO getHobbyDAOInstance(EntityManagerFactory _emf){
         if (instance == null) {
             emf = _emf;
             instance = new HobbyDAO();
