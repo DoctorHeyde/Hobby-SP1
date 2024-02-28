@@ -63,32 +63,32 @@ class DAOTest {
 
     @Test
     void save() {
-        ZipCode zip1 = new ZipCode(2400,"københavn","regionHovedstad","København");
-        User user1 = new User("Valde",239239,zip1,"Møllegade","stue",1);
-        Hobby hobby1 = new Hobby("Skak","wwww.wiki","Generel",Style.Educational_hobbies);
+        ZipCode expectedZip = new ZipCode(2400,"københavn","regionHovedstad","København");
+        User expectedUser = new User("Valde",239239,expectedZip,"Møllegade","stue",1);
+        Hobby expectedHobby = new Hobby("Skak","wwww.wiki","Generel",Style.Educational_hobbies);
 
 
-        zipCodeDAO.save(zip1);
-        userDAO.save(user1);
-        hobbyDAO.save(hobby1);
+        zipCodeDAO.save(expectedZip);
+        userDAO.save(expectedUser);
+        hobbyDAO.save(expectedHobby);
 
-        ZipCode expectedZipcode;
-        User expectedUser;
-        Hobby expectedHobby;
+        ZipCode aguredZipcode;
+        User aguredUser;
+        Hobby agureddHobby;
 
         try(EntityManager em = emfTest.createEntityManager()){
 
-            expectedZipcode = em.find(ZipCode.class, 2400);
-            expectedHobby = em.find(Hobby.class, 3);
-            expectedUser = em.find(User.class, 4);
+            aguredZipcode = em.find(ZipCode.class, 2400);
+            agureddHobby = em.find(Hobby.class, 3);
+            aguredUser = em.find(User.class, 4);
 
             //Assery
 
-            assertEquals(expectedZipcode.getCityName(), zip1.getCityName());
+            assertEquals(aguredZipcode.getCityName(), expectedZip.getCityName());
 
-            assertEquals(expectedUser.getName(),user1.getName());
+            assertEquals(aguredUser.getName(),expectedUser.getName());
 
-            assertEquals(expectedHobby.getName(),hobby1.getName());
+            assertEquals(agureddHobby.getName(),expectedHobby.getName());
 
 
         }
@@ -96,6 +96,18 @@ class DAOTest {
 
     @Test
     void update() {
+//Arrange
+        ZipCode zip2 = new ZipCode(2300, "Christianshavn", "Nordsjælland", "København");
+//Act
+        zipCodeDAO.update(zip2);
+        ZipCode actualZipCode;
+        try(EntityManager em = emfTest.createEntityManager()){
+            actualZipCode = em.find(ZipCode.class, 2300);
+
+//Assert
+            assertEquals(zip2.getCityName(),actualZipCode.getCityName());
+
+        }
     }
 
     @Test
