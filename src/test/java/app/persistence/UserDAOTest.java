@@ -1,0 +1,66 @@
+package app.persistence;
+
+import app.config.HibernateConfig;
+import app.model.Hobby;
+import app.model.Style;
+import app.model.User;
+import app.model.ZipCode;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Query;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class UserDAOTest {
+    private static EntityManagerFactory emfTest = HibernateConfig.getEntityManagerFactoryConfig("testdb",true);
+    private static HobbyDAO hobbyDAO = HobbyDAO.getHobbyDAOInstance(emfTest);
+    private static UserDAO userDAO = UserDAO.getUserDAOInstance(emfTest);
+
+    @AfterEach
+    void afterEach() {
+        //Flush the database before each test
+        try(EntityManager em = emfTest.createEntityManager()) {
+            em.getTransaction().begin();
+            Query query = em.createQuery("DELETE FROM Hobby h");
+            query.executeUpdate();
+            em.getTransaction().commit();
+        }
+    }
+
+    @BeforeEach
+    void setUp() {
+        Hobby h1 = new Hobby("3d-printing", "https://en.wikipedia.org/wiki/3D_printing", "Generel", Style.Indendørs); //id 1
+        Hobby h2 = new Hobby("BasketBall", "https://en.wikipedia.org/wiki/basketball", "sport", Style.Udendørs); //id 2
+
+        ZipCode zip = new ZipCode(2500, "Valby", "Nordsjælland", "København");
+
+        User u1 = new User("Lauritz", 12312312, zip, "Street1", "1tv",17);
+        User u2 = new User("Alberte", 60230304, zip, "Street2", "1tv",17);
+        User u3 = new User("John doe", 60230304, zip, "Street2", "1tv",17);
+        u1.addHobby(h1);
+        u2.addHobby(h1);
+        u3.addHobby(h2);
+        //Persist user entities(Use save method from DAO if available)
+        try(EntityManager em = emfTest.createEntityManager()) {
+            em.getTransaction().begin();
+            em.persist(zip);
+            em.persist(u1);
+            em.persist(u2);
+            em.persist(u3);
+            em.getTransaction().commit();
+        }
+
+        hobbyDAO.save(h1);
+        hobbyDAO.save(h2);
+    }
+
+    @Test
+    void getUsersByHobby() {
+        assertEquals(2, userDAO.getUsersByHobby(1).size());
+        assertEquals(1, userDAO.getUsersByHobby(2).size());
+    }
+}
