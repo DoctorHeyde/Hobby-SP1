@@ -17,13 +17,16 @@ import static org.junit.jupiter.api.Assertions.*;
 class DAOTest {
 
     private static EntityManagerFactory emfTest = HibernateConfig.getEntityManagerFactoryConfig("testdb",true);
-    private static HobbyDAO hobbyDAO = HobbyDAO.getHobbyDAOInstance(emfTest);
-    private static UserDAO userDAO = UserDAO.getUserDAOInstance(emfTest);
-    private static ZipCodeDAO zipCodeDAO = ZipCodeDAO.getZipCodeDAOInstanse(emfTest);
+    private static HobbyDAO hobbyDAO;
+    private static UserDAO userDAO;
+    private static ZipCodeDAO zipCodeDAO;
 
     @BeforeAll
     public static void setUpAll() {
         emfTest = HibernateConfig.getEntityManagerFactoryConfig("testdb",true);
+        hobbyDAO = HobbyDAO.getHobbyDAOInstance(emfTest);
+        userDAO = UserDAO.getUserDAOInstance(emfTest);
+        zipCodeDAO = ZipCodeDAO.getZipCodeDAOInstanse(emfTest);
     }
 
     @BeforeEach
