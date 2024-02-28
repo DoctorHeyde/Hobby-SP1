@@ -4,6 +4,9 @@ package app.persistence;
 import app.model.Hobby;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 import app.model.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -80,6 +83,17 @@ public class UserDAO extends DAO<User>{
             TypedQuery<Integer> q = em.createQuery(sql, Integer.class);
             q.setParameter("userId", userId);
             return q.getSingleResult();
+        }
+    }
+
+    //14-us-10-as-a-user-i-want-to-see-all-people-on-an-address-with-a-count-on-how-many-hobbies-each-person-has-use-java-streams-for-this-one
+    public Map<User, Integer> getUsersHobbyCountByAddress(String streetName, int houseNumber){
+        try(var em = emf.createEntityManager()){
+            String sql = "SELECT u FROM User u WHERE u.streetName = :streetName AND u.houseNumber = :houseNumber";
+            TypedQuery<User> q = em.createQuery(sql, User.class);
+            q.setParameter("streetName", streetName);
+            q.setParameter("houseNumber", houseNumber);
+            return q.getResultStream().collect(Collectors.toMap(user -> user, user -> user.getHobbies().size()));
         }
     }
 }
