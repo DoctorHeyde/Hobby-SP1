@@ -72,25 +72,23 @@ class DAOTest {
         userDAO.save(expectedUser);
         hobbyDAO.save(expectedHobby);
 
-        ZipCode aguredZipcode;
-        User aguredUser;
-        Hobby agureddHobby;
+        ZipCode actualZipcode;
+        User actualUser;
+        Hobby actualHobby;
 
         try(EntityManager em = emfTest.createEntityManager()){
 
-            aguredZipcode = em.find(ZipCode.class, 2400);
-            agureddHobby = em.find(Hobby.class, 3);
-            aguredUser = em.find(User.class, 4);
+            actualZipcode = em.find(ZipCode.class, 2400);
+            actualHobby = em.find(Hobby.class, 3);
+            actualUser = em.find(User.class, 4);
 
             //Assery
 
-            assertEquals(aguredZipcode.getCityName(), expectedZip.getCityName());
+            assertEquals(actualZipcode.getCityName(), expectedZip.getCityName());
 
-            assertEquals(aguredUser.getName(),expectedUser.getName());
+            assertEquals(actualUser.getName(),expectedUser.getName());
 
-            assertEquals(agureddHobby.getName(),expectedHobby.getName());
-
-
+            assertEquals(actualHobby.getName(),expectedHobby.getName());
         }
     }
 
