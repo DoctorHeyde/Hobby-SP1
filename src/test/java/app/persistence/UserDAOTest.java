@@ -14,12 +14,21 @@ import jakarta.persistence.Query;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class UserDAOTest {
-    private EntityManagerFactory emfTest = HibernateConfig.getEntityManagerFactoryConfig("testdb",true);
-    private UserDAO userDAO = UserDAO.getUserDAOInstance(emfTest);
+    private static EntityManagerFactory emfTest;
+    private static UserDAO userDAO;
+
+    @BeforeAll
+    public static void setupAll(){
+        emfTest = HibernateConfig.getEntityManagerFactoryConfig("testdb",true);
+        userDAO = UserDAO.getUserDAOInstance(emfTest);
+    }
 
     @AfterEach
     public void afterEach() {
