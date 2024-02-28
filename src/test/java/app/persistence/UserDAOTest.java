@@ -86,7 +86,8 @@ public class UserDAOTest {
         assertEquals(expected, actual);
     }
     
-    void getPhoneNumber() {
+    @Test
+    public void getPhoneNumber() {
         assertEquals(12312312, userDAO.getPhoneNumber(1));
         assertEquals(60230304, userDAO.getPhoneNumber(2));
     }
