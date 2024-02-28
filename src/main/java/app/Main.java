@@ -18,10 +18,10 @@ public class Main {
         EntityManagerFactory emf = HibernateConfig.getEntityManagerFactoryConfig("hobby", false);
 
         ZipCodeDAO zipCodeDAO   = ZipCodeDAO.getZipCodeDAOInstanse(emf);
-        UserDAO userDAO         = UserDAO.getUserDAOInstanse(emf);
+        UserDAO userDAO         = UserDAO.getUserDAOInstance(emf);
 
-        ZipCodeControler zipCodeControler   = new ZipCodeControler(zipCodeDAO);
-        UserControler userControler         = new UserControler(userDAO);
+        ZipCodeControler zipCodeControler = new ZipCodeControler(zipCodeDAO);
+        UserControler userControler = new UserControler(userDAO);
 
         zipCodeControler.printAllZipsCity();
 

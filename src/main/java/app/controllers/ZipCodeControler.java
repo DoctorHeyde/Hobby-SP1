@@ -11,6 +11,6 @@ public class ZipCodeControler {
     private ZipCodeDAO dao;
     
     public void printAllZipsCity(){
-        dao.getAllZipCodeds().forEach(c -> System.out.println("Zip code: " + c.getZip() + ", City name: " + c.getCityName()));
+        dao.getAllZipCodes().forEach(c -> System.out.println("Zip code: " + c.getZip() + ", City name: " + c.getCityName()));
     }
 }
