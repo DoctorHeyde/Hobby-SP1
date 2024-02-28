@@ -19,7 +19,6 @@ import org.junit.jupiter.api.Test;
 
 public class UserDAOTest {
     private EntityManagerFactory emfTest = HibernateConfig.getEntityManagerFactoryConfig("testdb",true);
-    private HobbyDAO hobbyDAO = HobbyDAO.getHobbyDAOInstance(emfTest);
     private UserDAO userDAO = UserDAO.getUserDAOInstance(emfTest);
 
     @AfterEach
@@ -43,9 +42,7 @@ public class UserDAOTest {
         Hobby h2 = new Hobby("BasketBall", "https://en.wikipedia.org/wiki/basketball", "sport", Style.Udendørs); //id 2
 
         ZipCode zip = new ZipCode(2500, "Valby", "Nordsjælland", "København");
-        ZipCodeDAO zipCodeDAO = ZipCodeDAO.getZipCodeDAOInstanse(emfTest);
-        zipCodeDAO.save(zip);
-
+        
         User u1 = new User("Lauritz", 12312312, zip, "Street1", "1tv",17);
         User u2 = new User("Alberte", 60230304, zip, "Street2", "1tv",17);
         User u3 = new User("John doe", 60230305, zip, "Street2", "1tv",17);
@@ -53,19 +50,21 @@ public class UserDAOTest {
         u2.addHobby(h1);
         u3.addHobby(h2);
         
-        userDAO.save(u1);
-        userDAO.save(u2);
-        userDAO.save(u3);
-
-        hobbyDAO.save(h1);
-        hobbyDAO.save(h2);
+        try(var em = emfTest.createEntityManager()){
+            em.getTransaction().begin();
+            em.persist(zip);
+            em.persist(u1);
+            em.persist(u2);
+            em.persist(u3);
+            em.persist(h1);
+            em.persist(h2);
+            em.getTransaction().commit();
+        }
     }
 
     @Test
     public void getUsersByHobby() {
-        User u = userDAO.getById(1);
-        
-
+        assertEquals(2, userDAO.getUsersByHobby(1).size());
         assertEquals(1, userDAO.getUsersByHobby(2).size());
     }
 
