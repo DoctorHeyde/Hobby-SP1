@@ -63,4 +63,10 @@ class UserDAOTest {
         assertEquals(2, userDAO.getUsersByHobby(1).size());
         assertEquals(1, userDAO.getUsersByHobby(2).size());
     }
+
+    @Test
+    void getPhoneNumber() {
+        assertEquals(12312312, userDAO.getPhoneNumber(1));
+        assertEquals(60230304, userDAO.getPhoneNumber(2));
+    }
 }
