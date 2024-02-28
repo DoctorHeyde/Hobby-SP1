@@ -62,7 +62,9 @@ public class Main {
 
 
         ZipCodeDAO zipCodeDAO   = ZipCodeDAO.getZipCodeDAOInstanse(emf);
+
         //UserDAO userDAO         = UserDAO.getUserDAOInstance(emf);
+
 
         ZipCodeControler zipCodeControler   = new ZipCodeControler(zipCodeDAO);
         UserControler userControler         = new UserControler(userDAO);
