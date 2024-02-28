@@ -8,8 +8,8 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.TypedQuery;
 
 public class ZipCodeDAO extends DAO<ZipCode> {
-    public static ZipCodeDAO instanse;
-        public static ZipCodeDAO getZipCodeDAOInstanse(EntityManagerFactory _emf){
+    private static ZipCodeDAO instanse;
+    public static ZipCodeDAO getZipCodeDAOInstanse(EntityManagerFactory _emf){
         if (instanse == null) {
             emf = _emf;
             instanse = new ZipCodeDAO();

@@ -11,8 +11,8 @@ import jakarta.persistence.TypedQuery;
 
 
 public class UserDAO extends DAO<User>{
-    public static UserDAO instance;
-        public static UserDAO getUserDAOInstance(EntityManagerFactory _emf){
+    private static UserDAO instance;
+    public static UserDAO getUserDAOInstance(EntityManagerFactory _emf){
         if (instance == null) {
 
             emf = _emf;
@@ -55,6 +55,14 @@ public class UserDAO extends DAO<User>{
         }
     }
 
+    public User getByPhoneNumber(int phoneNumber) {
+        try(var em = emf.createEntityManager()){
+            String sql = "SELECT u FROM User u WHERE u.phoneNumber = :phoneNumber";
+            TypedQuery<User> q = em.createQuery(sql, User.class);
+            q.setParameter("phoneNumber", phoneNumber);
+            return q.getSingleResult();
+        }
+    }
     //As a user I want to get all persons with a given hobby
     public List<User> getUsersByHobby(int hobbyId){
         try(var em = emf.createEntityManager()){
