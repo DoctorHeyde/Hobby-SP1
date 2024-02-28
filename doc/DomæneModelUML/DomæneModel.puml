@@ -56,3 +56,4 @@ municipalityName
 User "*"--"1" ZipCode
 Hobby "*"--"*" User
 
+@enduml
