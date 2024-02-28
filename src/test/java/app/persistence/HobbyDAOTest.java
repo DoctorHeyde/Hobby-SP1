@@ -1,5 +1,6 @@
 package app.persistence;
 
+import app.DTO.NumberOfUsersPerHobbyDTO;
 import app.config.HibernateConfig;
 import app.model.Hobby;
 import app.model.Style;
@@ -12,6 +13,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -67,5 +70,29 @@ class HobbyDAOTest {
     void getNumberOfUsersWithHobby() {
         assertEquals(2,hobbyDAO.getNumberOfUsersWithHobby(1));
         assertEquals(1,hobbyDAO.getNumberOfUsersWithHobby(2));
+    }
+
+    @Test
+    void getNumberOfUsersPerHobby(){
+
+        // Arrange
+        String expectedName1 = "3d-printing";
+        String expectedName2 = "BasketBall";
+
+        int expectedNumber1 = 2;
+        int expectedNumber2 = 1;
+
+        // Act
+        List<NumberOfUsersPerHobbyDTO> actualList = hobbyDAO.getNumberOfPersonsPerHobby();
+        String actualName1 = actualList.get(0).getHobby().getName();
+        String actualName2 = actualList.get(1).getHobby().getName();
+        long actualNumber1 = actualList.get(0).getNumberOfUsers();
+        long actualNumber2 = actualList.get(1).getNumberOfUsers();
+
+        // Assert
+        assertEquals(expectedName1, actualName1);
+        assertEquals(expectedNumber1, actualNumber1);
+        assertEquals(expectedName2, actualName2);
+        assertEquals(expectedNumber2, actualNumber2);
     }
 }

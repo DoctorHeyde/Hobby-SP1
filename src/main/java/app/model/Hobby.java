@@ -37,6 +37,7 @@ public class Hobby {
     private Style style;
 
 
+    @ToString.Exclude
     @ManyToMany
     private Set<User> users = new HashSet<>();
 
