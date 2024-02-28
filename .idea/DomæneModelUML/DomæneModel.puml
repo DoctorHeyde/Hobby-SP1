@@ -1,0 +1,58 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+left to right direction
+skinparam BackgroundColor #f5f5f5
+skinparam style strictuml
+skinparam DefaultFontSize 16
+skinparam DefaultFontStyle bold
+skinparam ArrowColor #lightgrey
+skinparam ArrowThickness 4
+hide methods
+hide circle
+hide empty
+
+<style>
+legend {
+    BackgroundColor #f5f5f5
+    FontColor black
+    FontSize 20
+}
+
+.p {
+    FontColor black
+}
+</style>
+
+
+Title Domænemodel Hobby
+
+
+class User {
+    name
+    phoneNumber
+    zipCode
+    streetName
+    floor
+    houseNumber
+}
+
+
+Class Hobby {
+ name
+ wikiLink
+ category
+ style
+}
+
+Class ZipCode {
+zip
+cityName
+regionName
+municipalityName
+
+}
+
+User "*"--"1" ZipCode
+Hobby "*"--"*" User
+
