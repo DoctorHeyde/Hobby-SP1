@@ -9,7 +9,7 @@ import jakarta.persistence.TypedQuery;
 
 public class UserDAO extends DAO<User>{
     public static UserDAO instance;
-        public static UserDAO getUserDAOInstance(EntityManagerFactory _emf){
+    public static UserDAO getUserDAOInstance(EntityManagerFactory _emf){
         if (instance == null) {
             emf = _emf;
             instance = new UserDAO();
@@ -30,6 +30,15 @@ public class UserDAO extends DAO<User>{
             TypedQuery<User> q = em.createQuery(sql, User.class);
             q.setParameter("zipCode", zipCode);
             return q.getResultList();
+        }
+    }
+
+    public User getByPhoneNumber(int phoneNumber) {
+        try(var em = emf.createEntityManager()){
+            String sql = "SELECT u FROM User u WHERE u.phoneNumber = :phoneNumber";
+            TypedQuery<User> q = em.createQuery(sql, User.class);
+            q.setParameter("phoneNumber", phoneNumber);
+            return q.getSingleResult();
         }
     }
 }
