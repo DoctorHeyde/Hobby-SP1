@@ -30,6 +30,9 @@ public abstract class DAO<T extends Object> {
     }
 
     public abstract T getById(int id);
+
+
+
     public void remove(T t){
         try (EntityManager em = emf.createEntityManager()) {
             em.getTransaction().begin();

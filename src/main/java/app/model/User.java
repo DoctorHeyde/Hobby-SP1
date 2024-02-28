@@ -52,6 +52,16 @@ public class User {
         this.houseNumber = houseNumber;
     }
 
+    public User(int id, String name, int phoneNumber, ZipCode zipCode, String streetName, String floor, int houseNumber) {
+        this.id = id;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.zipCode = zipCode;
+        this.streetName = streetName;
+        this.floor = floor;
+        this.houseNumber = houseNumber;
+    }
+
     public void addHobby(Hobby hobby){
         if (hobby != null) {
             hobby.addUser(this);
