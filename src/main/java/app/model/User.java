@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -21,6 +22,12 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private int id;
+
+    @Column(name = "persisted_at")
+    private LocalDateTime timeStamp;
+
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -61,6 +68,23 @@ public class User {
         this.streetName = streetName;
         this.floor = floor;
         this.houseNumber = houseNumber;
+    }
+
+    @PrePersist
+    public void timeStamp () throws RuntimeException {
+
+        LocalDateTime localDateTime = java.time.LocalDateTime.now();
+
+        this.timeStamp = localDateTime;
+        this.updatedAt = localDateTime;
+
+    }
+
+    @PreUpdate
+    public void preUpdate() throws RuntimeException {
+        LocalDateTime localDateTime = java.time.LocalDateTime.now();
+
+        this.updatedAt = localDateTime;
     }
 
     public void addHobby(Hobby hobby){
