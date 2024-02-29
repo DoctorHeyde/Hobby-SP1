@@ -23,7 +23,7 @@ public class User {
     @Column(name = "id", nullable = false)
     private int id;
 
-    @Column(columnDefinition = "time")
+    @Column(name = "persisted_at")
     private LocalDateTime timeStamp;
 
     @Column(name = "updated_at")
