@@ -24,12 +24,11 @@ public class ZipCodeDAO extends DAO<ZipCode> {
         }  
     }
 
-    public List<ZipCode> getAllZipCodeds(){
+    public List<ZipCode> getAllZipCodes(){
         try(EntityManager em = emf.createEntityManager()){
             String sql = "FROM ZipCode";
             TypedQuery<ZipCode> zips =  em.createQuery(sql, ZipCode.class);
             return zips.getResultList();
         }
     }
-    
 }
