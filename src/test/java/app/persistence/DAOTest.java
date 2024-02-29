@@ -84,12 +84,9 @@ class DAOTest {
             actualHobby = em.find(Hobby.class, 3);
             actualUser = em.find(User.class, 4);
 
-            //Assery
-
+            //Assert
             assertEquals(actualZipcode.getCityName(), expectedZip.getCityName());
-
             assertEquals(actualUser.getName(), expectedUser.getName());
-
             assertEquals(actualHobby.getName(), expectedHobby.getName());
         }
     }
@@ -157,13 +154,9 @@ class DAOTest {
             actualHobby = em.find(Hobby.class, 2);
             actualUser = em.find(User.class, 1);}
 
-
         // Assert
-
         assertEquals(null, actualZipcode);
         assertEquals(null, actualUser);
         assertEquals(null, actualHobby);
-
-
     }
 }
