@@ -51,7 +51,7 @@ public class UserDAO extends DAO<User>{
 
     public List<User> getUsersByZip(int zipCode){
         try(var em = emf.createEntityManager()){
-            String sql = "SELECT u FROM User u WHERE u.zipCode = :zipCode";
+            String sql = "SELECT u FROM User u JOIN u.zipCode z WHERE z.zip = :zipCode";
             TypedQuery<User> q = em.createQuery(sql, User.class);
             q.setParameter("zipCode", zipCode);
             return q.getResultList();
