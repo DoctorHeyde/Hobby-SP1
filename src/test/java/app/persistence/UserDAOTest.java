@@ -50,12 +50,12 @@ public class UserDAOTest {
 
     @BeforeEach
     public void setUp() {
-        
+
         Hobby h1 = new Hobby("3d-printing", "https://en.wikipedia.org/wiki/3D_printing", "Generel", Style.Indendørs); //id 1
         Hobby h2 = new Hobby("BasketBall", "https://en.wikipedia.org/wiki/basketball", "sport", Style.Udendørs); //id 2
 
         ZipCode zip = new ZipCode(2500, "Valby", "Nordsjælland", "København");
-        
+
         User u1 = new User("Lauritz", 12312312, zip, "Street1", "1tv",17);
         User u2 = new User("Alberte", 60230304, zip, "Street2", "1tv",17);
         User u3 = new User("John doe", 60230305, zip, "Street2", "1tv",17);
@@ -63,7 +63,7 @@ public class UserDAOTest {
         u1.addHobby(h2);
         u2.addHobby(h1);
         u3.addHobby(h2);
-        
+
         try(var em = emfTest.createEntityManager()){
             em.getTransaction().begin();
             em.persist(zip);
