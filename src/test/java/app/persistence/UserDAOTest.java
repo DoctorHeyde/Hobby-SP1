@@ -19,6 +19,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -74,6 +76,31 @@ public class UserDAOTest {
         }
     }
 
+
+    @Test
+    public void getUsersByZip(){
+
+        // Arrange
+        ZipCode zip = new ZipCode(2500, "Valby", "Nordsjælland", "København");
+
+        User u1 = new User("Lauritz", 12312312, zip, "Street1", "1tv",17);
+        User u2 = new User("Alberte", 60230304, zip, "Street2", "1tv",17);
+        User u3 = new User("John doe", 60230305, zip, "Street2", "1tv",17);
+
+        List<User> expected = new ArrayList<>();
+        expected.add(u1);
+        expected.add(u2);
+        expected.add(u3);
+
+        // Act
+        List<User> actual = userDAO.getUsersByZip(2500);
+
+        // Assert
+        assertEquals(expected.size(), actual.size());
+        assertEquals(expected.get(0).getName(), actual.get(0).getName());
+        assertEquals(expected.get(1).getName(), actual.get(1).getName());
+        assertEquals(expected.get(2).getPhoneNumber(), actual.get(2).getPhoneNumber());
+    }
     @Test
     public void getUsersByHobby() {
         assertEquals(2, userDAO.getUsersByHobby(1).size());
@@ -102,4 +129,7 @@ public class UserDAOTest {
         assertEquals(2,actualCount);
         assertEquals(1,actualUser.getId());
     }
+
+
+
 }

@@ -148,6 +148,7 @@ class DAOTest {
             actualUser = em.find(User.class, 1);
         }
 
+
         // Assert
         assertEquals(null, actualZipcode);
         assertEquals(null, actualUser);
