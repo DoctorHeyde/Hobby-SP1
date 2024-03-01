@@ -32,6 +32,18 @@ public class UserDAO extends DAO<User>{
     }
 
 
+    public List<UserDto> getAllUserInfo(int id){
+        try(var em = emf.createEntityManager()) {
+            var query = em.createQuery("SELECT new app.DTO.UserDto(u.name, u.phoneNumber, u.zipCode, u.streetName, u.floor, u.houseNumber, h) " +
+                            "FROM User u " +
+                            "JOIN u.hobbies h JOIN u.zipCode z WHERE u.id = ?1",
+                    UserDto.class).setParameter(1, id);
+
+            return query.getResultList();
+        }
+    }
+
+
     public void addHobbyToUser(int userId, int hobbyId) {
 
         try (var em = emf.createEntityManager()) {
