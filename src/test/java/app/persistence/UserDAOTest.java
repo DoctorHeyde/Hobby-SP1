@@ -1,5 +1,6 @@
 package app.persistence;
 
+import app.DTO.UserDTO;
 import app.config.HibernateConfig;
 import app.model.Hobby;
 import app.model.Style;
@@ -129,6 +130,31 @@ public class UserDAOTest {
         assertEquals(1,actualUser.getId());
     }
 
+    @Test
+    void getAllUserInfo() {
+
+        //Arrange
+        ZipCode zip = new ZipCode(2500, "Valby", "Nordsjælland", "København");
+        User u2 = new User("Alberte", 60230304, zip, "Street2", "1tv",17);
+
+        Hobby h1 = new Hobby("3d-printing", "https://en.wikipedia.org/wiki/3D_printing", "Generel", Style.Indendørs); //id 1
+
+        String expectedName = u2.getName();
+        int expectedNumber = u2.getPhoneNumber();
+        Hobby expectedHobby = h1;
 
 
+        //Act
+        UserDTO actualUserDTO = userDAO.getAllUserInfo(2);
+
+        String actualName = actualUserDTO.getName();
+        int actualNumber = actualUserDTO.getPhoneNumber();
+        List<Hobby> actualHobbies = actualUserDTO.getHobbies();
+
+        //Assert
+        assertEquals(expectedName, actualName);
+        assertEquals(expectedNumber, actualNumber);
+        assertEquals(expectedHobby.getName(), actualHobbies.get(0).getName());
+
+    }
 }
