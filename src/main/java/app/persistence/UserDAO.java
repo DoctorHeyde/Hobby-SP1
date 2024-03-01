@@ -1,6 +1,8 @@
 package app.persistence;
 
 
+import app.DTO.NumberOfUsersPerHobbyDTO;
+import app.DTO.UserDto;
 import app.model.Hobby;
 
 import java.util.List;
@@ -47,11 +49,14 @@ public class UserDAO extends DAO<User>{
 
     }
 
-    public List<User> getAllUserInfo(){
-        try(var em = emf.createEntityManager()){
-            String sql = "SELECT a FROM User a";
-            TypedQuery<User> q = em.createQuery(sql, User.class);
-            return q.getResultList();
+    public List<UserDto> getAllUserInfo(int id){
+        try(var em = emf.createEntityManager()) {
+            var query = em.createQuery("SELECT new app.DTO.UserDto(u.name, u.phoneNumber, u.zipCode, u.streetName, u.floor, u.houseNumber, h) " +
+                            "FROM User u " +
+                            "JOIN u.hobbies h JOIN u.zipCode z WHERE u.id = ?1",
+                    UserDto.class).setParameter(1, id);
+
+            return query.getResultList();
         }
     }
 

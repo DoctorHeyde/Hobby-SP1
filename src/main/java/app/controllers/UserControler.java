@@ -15,7 +15,10 @@ public class UserControler {
         dao.getUsersByZip(zipCode).forEach(u -> System.out.println(u.getName()));
     }
 
+    /*
     public void printPersonByAllInfo(){
-        dao.getAllUserInfo().forEach(a -> System.out.println("Name: " + a.getName() + ", Phone number: " + a.getPhoneNumber() + ", Zip code: " + a.getZipCode() + ", Street name: " + a.getStreetName() + ", Floor: " + a.getFloor() + ", House number: " + a.getHouseNumber()));
+        dao.getAllUserInfo().forEach(u -> System.out.println("Name: " + u.getName() + ", Phone number: " + u.getPhoneNumber() + ", Zip code: " + u.getZipCode() + ", Street name: " + u.getStreetName() + ", Floor: " + u.getFloor() + ", House number: " + u.getHouseNumber()));
     }
+
+     */
 }
