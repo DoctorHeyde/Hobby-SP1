@@ -48,6 +48,14 @@ public class Hobby {
         this.style = style;
     }
 
+    public Hobby(Integer id, String name, String wikiLink, String category, Style style) {
+        this.id = id;
+        this.name = name;
+        this.wikiLink = wikiLink;
+        this.category = category;
+        this.style = style;
+    }
+
     public void addUser(User user){
         users.add(user);
     }
