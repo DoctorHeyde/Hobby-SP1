@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class UserDAOTest {
     private static EntityManagerFactory emfTest;
     private static UserDAO userDAO;

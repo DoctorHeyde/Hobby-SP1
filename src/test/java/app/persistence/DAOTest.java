@@ -11,7 +11,6 @@ import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class DAOTest {
 
     private static EntityManagerFactory emfTest = HibernateConfig.getEntityManagerFactoryConfig("testdb", true);
